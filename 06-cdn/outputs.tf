@@ -6,6 +6,14 @@
    value = aws_cloudfront_distribution._myne_front.hosted_zone_id
  }
 
+#WWWW
+ output "www_domain_name"{
+   value = aws_cloudfront_distribution._www_myne_front.domain_name
+ }
+ output "www_hosted_zone_id"{
+   value = aws_cloudfront_distribution._www_myne_front.hosted_zone_id
+ }
+
 #API
 # output "api_domain_name"{
 #   value = aws_cloudfront_distribution.api_myne_front.domain_name
