@@ -1,10 +1,10 @@
 #NO_WWWW
-# output "_domain_name"{
-#   value = aws_cloudfront_distribution.myne_front.domain_name
-# }
-# output "_hosted_zone_id"{
-#   value = aws_cloudfront_distribution.myne_front.hosted_zone_id
-# }
+ output "_domain_name"{
+   value = aws_cloudfront_distribution._myne_front.domain_name
+ }
+ output "_hosted_zone_id"{
+   value = aws_cloudfront_distribution._myne_front.hosted_zone_id
+ }
 
 #API
 # output "api_domain_name"{
@@ -23,12 +23,12 @@
 # }
 
 #AUDIOS
-# output "audios_domain_name"{
-#   value = aws_cloudfront_distribution.audios_myne_front.domain_name
-# }
-# output "audios_hosted_zone_id"{
-#   value = aws_cloudfront_distribution.audios_myne_front.hosted_zone_id
-# }
+ output "audios_domain_name"{
+   value = aws_cloudfront_distribution.audios_front.domain_name
+ }
+ output "audios_hosted_zone_id"{
+   value = aws_cloudfront_distribution.audios_front.hosted_zone_id
+ }
 
 #FILES
 # output "files_domain_name"{
@@ -69,11 +69,3 @@
 # output "videos_hosted_zone_id"{
 #   value = aws_cloudfront_distribution.videos_myne_front.hosted_zone_id
 # }
-
-#WWW
-output "www_domain_name"{
-  value = aws_cloudfront_distribution.www_myne_front.domain_name
-}
-output "www_hosted_zone_id"{
-  value = aws_cloudfront_distribution.www_myne_front.hosted_zone_id
-}
