@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "cert" {
-  domain_name       = "*.${local.zones[terraform.workspace]}"
+  domain_name       = "${local.zones[terraform.workspace]}"
   validation_method = "DNS"
   tags              = local.acm_certificate_tags
   subject_alternative_names = ["*.${local.zones[terraform.workspace]}"]
