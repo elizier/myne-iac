@@ -18,6 +18,14 @@ output "_myne_bucket_regional_name" {
   value = aws_s3_bucket._myne.bucket_regional_domain_name
 }
 
+output "www_myne_bucket_regional_name" {
+  value = aws_s3_bucket.www_myne.bucket_regional_domain_name
+}
+
+output "www_myne_website_endpoint" {
+  value = aws_s3_bucket.www_myne.website_endpoint
+}
+
 output "pdf_myne_bucket_regional_name" {
   value = aws_s3_bucket.pdf_myne.bucket_regional_domain_name
 }

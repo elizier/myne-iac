@@ -1,18 +1,28 @@
-resource "aws_cloudfront_distribution" "_myne_front" {
+resource "aws_cloudfront_distribution" "_www_myne_front" {
 
   origin {
-    domain_name = data.terraform_remote_state.s3.outputs._myne_bucket_regional_name
-    origin_id   = "s3"
     connection_attempts = 3
     connection_timeout  = 10
+    domain_name = data.terraform_remote_state.s3.outputs.www_myne_website_endpoint
+    origin_id   = "s3"
+
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_keepalive_timeout = 5
+      origin_protocol_policy = "http-only"
+      origin_read_timeout      = 30
+      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+    }
   }
 
-  default_root_object            = "index.html"
+
+  default_root_object            = ""
   enabled         = true
   is_ipv6_enabled = true
   comment         = "Front Cloudfront"
 
-  aliases = ["${local.zones[terraform.workspace]}"]
+  aliases = ["www.${local.zones[terraform.workspace]}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -35,7 +45,7 @@ resource "aws_cloudfront_distribution" "_myne_front" {
 
   tags = {
     Environment = var.environment
-    Name        = "Front End ${local.zones[terraform.workspace]} Cloudfront"
+    Name        = "Front End www.${local.zones[terraform.workspace]} Cloudfront"
   }
 
   viewer_certificate {
