@@ -1,9 +1,7 @@
-region           = "us-east-1"
-name             = "myne"
-team             = "myne"
-cidr             = "10.1.0.0/16"
-azs              = ["us-east-1a", "us-east-1b"]
-public_subnets   = ["10.1.0.0/24", "10.1.1.0/24"]
-private_subnets  = ["10.1.10.0/24", "10.1.11.0/24"]
-database_subnets = ["10.1.20.0/24", "10.1.21.0/24"]
-single_nat_gateway = true
+region = "us-east-1"
+team   = "myne"
+postgres_instance_class = "db.t2.micro"
+postgres_multi_az = false
+postgres_allocated_storage = 20
+postgres_max_allocated_storage = 0
+deletion_protection = false

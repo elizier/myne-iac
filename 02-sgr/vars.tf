@@ -1,38 +1,9 @@
-# Arquivo principal de variaveis terraform
 variable "region" {
-  type = string
-}
-
-variable "name" {
   type = string
 }
 
 variable "team" {
   type = string
-}
-
-variable "azs" {
-  type = list(string)
-}
-
-variable "cidr" {
-  type = string
-}
-
-variable "private_subnets" {
-  type = list(string)
-}
-
-variable "database_subnets" {
-  type = list(string)
-}
-
-variable "public_subnets" {
-  type = list(string)
-}
-
-variable "single_nat_gateway" {
-  type = bool
 }
 
 locals {
@@ -42,15 +13,7 @@ locals {
     "default" = ""
   }
 
-  zones = {
-    "production"  = "myne.net.br",
-    "homolog"     = "myne.digital",
-    "service"     = "myne.services",
-    "default"     = ""
-  }
   prefix = local.workspace_prefix[terraform.workspace]
-
-  vpc_name = "${local.prefix}${var.name}"
 
   tags = {
     Team                               = var.team
@@ -58,9 +21,12 @@ locals {
     Terraform                          = true
   }
 
-  public_subnet_tags = {
-  }
+  postgres_name = "${local.prefix}postgres"
+  postgres_tags = merge({ Name = local.postgres_name }, local.tags)
 
-  private_subnet_tags = {
-  }
+  ec2_name = "${local.prefix}app"
+  ec2_tags = merge({ Name = local.ec2_name }, local.tags)
+
+  public_name = "${local.prefix}public"
+  public_tags = merge({ Name = local.public_name }, local.tags)
 }
