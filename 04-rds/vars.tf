@@ -1,9 +1,4 @@
-# Arquivo principal de variaveis terraform
 variable "region" {
-  type = string
-}
-
-variable "name" {
   type = string
 }
 
@@ -11,27 +6,23 @@ variable "team" {
   type = string
 }
 
-variable "azs" {
-  type = list(string)
-}
-
-variable "cidr" {
+variable "postgres_instance_class" {
   type = string
 }
 
-variable "private_subnets" {
-  type = list(string)
+variable "postgres_multi_az" {
+  type = bool
 }
 
-variable "database_subnets" {
-  type = list(string)
+variable "postgres_allocated_storage" {
+  type = number
 }
 
-variable "public_subnets" {
-  type = list(string)
+variable "postgres_max_allocated_storage" {
+  type = number
 }
 
-variable "single_nat_gateway" {
+variable "deletion_protection" {
   type = bool
 }
 
@@ -42,15 +33,16 @@ locals {
     "default" = ""
   }
 
-  zones = {
-    "production"  = "myne.net.br",
-    "homolog"     = "myne.digital",
-    "service"     = "myne.services",
-    "default"     = ""
-  }
-  prefix = local.workspace_prefix[terraform.workspace]
+  postgres_dbname = "${local.prefix}postgres"
 
-  vpc_name = "${local.prefix}${var.name}"
+  postgres_workspace_backup_retention_period = {
+    "production": 3,
+    "homolog": 0
+  }
+
+  postgres_backup_retention_period = local.postgres_workspace_backup_retention_period[terraform.workspace]
+
+  prefix = local.workspace_prefix[terraform.workspace]
 
   tags = {
     Team                               = var.team
@@ -58,9 +50,5 @@ locals {
     Terraform                          = true
   }
 
-  public_subnet_tags = {
-  }
 
-  private_subnet_tags = {
-  }
 }
