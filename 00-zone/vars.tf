@@ -27,8 +27,8 @@ locals {
   zones = {
     "production"  = "myne.net.br",
     "homolog"     = "myne.digital",
-    "services"    = "myne.services",
-    "default"     = ""
+    # "services"    = "myne.services",
+    # "default"     = ""
   }
   acm_certificate_tags = merge({ Name = var.dns }, local.tags)
   route53_zone_tags    = merge({ Name = var.dns }, local.tags)
