@@ -50,5 +50,6 @@ locals {
     Terraform                          = true
   }
 
+  subnets = terraform.workspace == "homolog" ? data.terraform_remote_state.vpc.outputs.public_subnets : data.terraform_remote_state.vpc.outputs.private_subnets
 
 }

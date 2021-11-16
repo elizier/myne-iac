@@ -15,7 +15,7 @@ data "terraform_remote_state" "sgr" {
   workspace = terraform.workspace
 
   config = {
-    bucket  = "myne-ieac"
+    bucket  = "myne-iac"
     region  = var.region
     profile = "default"
     key     = "sgr/terraform.tfstate"
