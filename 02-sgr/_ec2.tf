@@ -1,8 +1,8 @@
 resource "aws_security_group" "ec2" {
-  name        = "server"
-  description = "Allow Postgres from peering VPC"
+  name        = local.ec2_name
+  tags        = local.ec2_tags
 
-  vpc_id = data.terraform_remote_state.vpc_id
+  vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
 
   # ingress {
   #   from_port   = 80
