@@ -1,5 +1,3 @@
-#Arquivo principal do Terraform
-
 terraform {
   required_providers {
     aws = {
