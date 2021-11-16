@@ -1,9 +1,4 @@
-# Arquivo principal de variaveis terraform
 variable "region" {
-  type = string
-}
-
-variable "name" {
   type = string
 }
 
@@ -11,28 +6,12 @@ variable "team" {
   type = string
 }
 
-variable "azs" {
-  type = list(string)
+variable "instance_count" {
+  type = number
 }
 
-variable "cidr" {
+variable "ami"{
   type = string
-}
-
-variable "private_subnets" {
-  type = list(string)
-}
-
-variable "database_subnets" {
-  type = list(string)
-}
-
-variable "public_subnets" {
-  type = list(string)
-}
-
-variable "single_nat_gateway" {
-  type = bool
 }
 
 locals {
@@ -55,5 +34,7 @@ locals {
     Environment                        = terraform.workspace
     Terraform                          = true
   }
+
+  subnets = terraform.workspace == "homolog" ? data.terraform_remote_state.vpc.outputs.public_subnets : data.terraform_remote_state.vpc.outputs.private_subnets
 
 }
