@@ -11,7 +11,7 @@
 # }
 resource "aws_route53_record" "images_myne_front" {
    zone_id = data.terraform_remote_state.zone.outputs.public_zone_id
-   name    = ""
+   name    = "images"
    type    = "A"
 
    alias {
