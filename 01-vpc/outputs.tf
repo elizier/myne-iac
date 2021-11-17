@@ -1,11 +1,25 @@
-output "public_zone_id" {
-  value = aws_route53_zone.dns.zone_id
-}
-
-output "public_certificate_arn" {
-  value = aws_acm_certificate.cert.arn
-}
-
 output "vpc_id" {
-  value = aws_vpc.vpc_id
+  value = module.vpc.vpc_id
+}
+
+# Subnets
+output "public_subnets" {
+  description = "List of IDs of public subnets"
+  value       = module.vpc.public_subnets
+}
+
+output "private_subnets" {
+  description = "List of IDs of private subnets"
+  value       = module.vpc.private_subnets
+}
+
+output "database_subnets" {
+  description = "List of IDs of database subnets"
+  value       = module.vpc.database_subnets
+}
+
+# NAT gateways
+output "nat_public_ips" {
+  description = "List of public Elastic IPs created for AWS NAT Gateway"
+  value       = module.vpc.nat_public_ips
 }

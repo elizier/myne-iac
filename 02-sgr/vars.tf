@@ -24,7 +24,7 @@ locals {
   postgres_name = "${local.prefix}postgres"
   postgres_tags = merge({ Name = local.postgres_name }, local.tags)
 
-  ec2_name = "${local.prefix}app"
+  ec2_name = "${local.prefix}server"
   ec2_tags = merge({ Name = local.ec2_name }, local.tags)
 
   public_name = "${local.prefix}public"
