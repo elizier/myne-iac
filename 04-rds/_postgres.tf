@@ -80,6 +80,22 @@ resource "aws_db_parameter_group" "postgres-12" {
   }
 }
 
+# resource "aws_db_option_group" "myne" {
+#   name   = "${local.prefix}postgres-12"
+#   option_group_description = "Myne Terraform Option Group"
+#   engine_name              = "postgres"
+#   major_engine_version     = "12"
+
+#   option {
+#     option_name = "rds.ext"
+
+#     option_settings {
+#       name  = "rds.ext"
+#       value = ""
+#     }
+#   }
+# }
+
 module "postgres" {
   source                              = "terraform-aws-modules/rds/aws"
   version                             = "2.13.0"
