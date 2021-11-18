@@ -6,8 +6,7 @@ resource "aws_key_pair" "deployer" {
 resource "aws_instance" "server-myne" {
   count         = var.instance_count
   ami           = var.ami
-  instance_type = "t2.micro"
-  #instance_type = "t3.small" //Evolução
+  instance_type = "t2.small"
   subnet_id              = local.subnets.0
   vpc_security_group_ids = [data.terraform_remote_state.sgr.outputs.ec2_sec_group_id]
   depends_on             = [aws_key_pair.deployer]

@@ -21,3 +21,15 @@ data "terraform_remote_state" "zone" {
     key     = "zone/terraform.tfstate"
   }
 }
+
+data "terraform_remote_state" "alb" {
+  backend   = "s3"
+  workspace = terraform.workspace
+
+  config = {
+    bucket  = "myne-iac"
+    region  = var.region
+    profile = "default"
+    key     = "alb/terraform.tfstate"
+  }
+}

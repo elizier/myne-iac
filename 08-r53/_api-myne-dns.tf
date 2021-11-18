@@ -1,23 +1,23 @@
-# resource "aws_route53_record" "api-myne" {
-#   zone_id = aws_route53_zone.myneservices.zone_id
-#   name    = "api"
-#   type    = "A"
+resource "aws_route53_record" "api_ipv4" {
+  zone_id = data.terraform_remote_state.zone.outputs.public_zone_id
+  name    = "api"
+  type    = "A"
 
-#   alias {
-#     name                   = aws_alb.api_myne_alb.dns_name
-#     zone_id                = aws_alb.api_myne_alb.zone_id
-#     evaluate_target_health = true
-#   }
-# }
+  alias {
+    evaluate_target_health = true
+    name                   = data.terraform_remote_state.alb.outputs.lb_dns_name
+    zone_id                = data.terraform_remote_state.alb.outputs.lb_zone_id
+  }
+}
 
-resource "aws_route53_record" "api_myne_front" {
-   zone_id = data.terraform_remote_state.zone.outputs.public_zone_id
-   name    = "api"
-   type    = "A"
+resource "aws_route53_record" "api_ipv6" {
+  zone_id = data.terraform_remote_state.zone.outputs.public_zone_id
+  name    = "api"
+  type    = "AAAA"
 
-   alias {
-     name                   = data.terraform_remote_state.cdn.outputs.api_domain_name
-     zone_id                = data.terraform_remote_state.cdn.outputs.api_hosted_zone_id
-     evaluate_target_health = false
-   }
- }
+  alias {
+    evaluate_target_health = true
+    name                   = data.terraform_remote_state.alb.outputs.lb_dns_name
+    zone_id                = data.terraform_remote_state.alb.outputs.lb_zone_id
+  }
+}
