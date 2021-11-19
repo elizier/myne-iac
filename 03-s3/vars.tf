@@ -26,15 +26,12 @@ variable "cidr" {
 locals {
   workspace_prefix= {
     "production" = "prd-",
-    "homolog" = "hom-",
-    "default" = ""
+    "homolog" = "hom-"
   }
   
 zones = {
     "production"  = "myne.net.br",
-    "homolog"     = "myne.digital",
-    "service"     = "myne.services",
-    "default"     = ""
+    "homolog"     = "myne.digital"
   }
   
   prefix = local.workspace_prefix[terraform.workspace]

@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "app_myne"{
+resource "aws_s3_bucket" "app_myne" {
   bucket = "app.${local.zones[terraform.workspace]}"
   acl    = "public-read"
 
