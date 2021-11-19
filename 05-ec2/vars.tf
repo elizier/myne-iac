@@ -22,9 +22,7 @@ locals {
   }
   zones = {
     "production"  = "myne.net.br",
-    "homolog"     = "myne.digital",
-    "service"     = "myne.services",
-    "default"     = ""
+    "homolog"     = "myne.digital"
   }
   
   prefix = local.workspace_prefix[terraform.workspace]
@@ -35,6 +33,7 @@ locals {
     Terraform                          = true
   }
 
-  subnets = terraform.workspace == "homolog" ? data.terraform_remote_state.vpc.outputs.public_subnets : data.terraform_remote_state.vpc.outputs.private_subnets
+  #subnets = terraform.workspace == "homolog" ? data.terraform_remote_state.vpc.outputs.public_subnets : data.terraform_remote_state.vpc.outputs.private_subnets
+  subnets = data.terraform_remote_state.vpc.outputs.public_subnets
 
 }
