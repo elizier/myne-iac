@@ -1,53 +1,56 @@
-# resource "aws_cloudfront_distribution" "app_myne_front" {
-#   origin {
-#     domain_name = replace("app.${local.zones[terraform.workspace]}", "/^https?://([^/]*).*/", "$1")
-#     origin_id   = "s3"
+resource "aws_cloudfront_distribution" "app_myne_front" {
+  # name = "app_myne_front_${local.zones[terraform.workspace]}"
 
-#     custom_origin_config {
-#       http_port              = 80
-#       https_port             = 443
-#       origin_protocol_policy = "http-only"
-#       origin_ssl_protocols   = ["TLSv1.2"]
-#     }
-#   }
-#   enabled         = true
-#   is_ipv6_enabled = true
-#   comment         = "Front Cloudfront"
+  origin {
+    domain_name = data.terraform_remote_state.s3.outputs.www_myne_website_endpoint
+    # domain_name = replace("app.${local.zones[terraform.workspace]}", "/^https?://([^/]*).*/", "$1")
+    origin_id   = "s3"
 
-#   aliases = ["*.${local.zones[terraform.workspace]}"]
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
+  enabled         = true
+  is_ipv6_enabled = true
+  comment         = "Front Cloudfront"
 
-#   default_cache_behavior {
-#     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-#     cached_methods   = ["GET", "HEAD"]
-#     target_origin_id = "s3"
-#     forwarded_values {
-#       headers      = ["*"]
-#       query_string = false
-#       cookies {
-#         forward = "none"
-#       }
-#     }
-#     min_ttl = 0
-#     default_ttl = 3600
-#     max_ttl = 86400
-#     viewer_protocol_policy = "redirect-to-https"
-#   }
+  aliases = ["*.${local.zones[terraform.workspace]}"]
 
-#   tags = {
-#     Environment = "${var.environment}"
-#     Name        = "Front End app.${local.zones[terraform.workspace]} Cloudfront"
-#   }
+  default_cache_behavior {
+    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "s3"
+    forwarded_values {
+      headers      = ["*"]
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+    min_ttl = 0
+    default_ttl = 3600
+    max_ttl = 86400
+    viewer_protocol_policy = "redirect-to-https"
+  }
 
-#   viewer_certificate {
-#     cloudfront_default_certificate = false
-#     acm_certificate_arn            = data.terraform_remote_state.zone.outputs.public_certificate_arn
-#     ssl_support_method             = "sni-only"
-#   }
+  tags = {
+    Environment = "${var.environment}"
+    Name        = "Front End app.${local.zones[terraform.workspace]} Cloudfront"
+  }
+
+  viewer_certificate {
+    cloudfront_default_certificate = false
+    acm_certificate_arn            = data.terraform_remote_state.zone.outputs.public_certificate_arn
+    ssl_support_method             = "sni-only"
+  }
   
-#   restrictions {
-#     geo_restriction {
-#       restriction_type = "none"
-#     }
-#   }
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
   
-# }
+}

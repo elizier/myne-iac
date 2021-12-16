@@ -1,5 +1,5 @@
 resource "aws_cloudfront_distribution" "_www_myne_front" {
-
+# name = "_www_myne_front_${local.zones[terraform.workspace]}"
   origin {
     connection_attempts = 3
     connection_timeout  = 10

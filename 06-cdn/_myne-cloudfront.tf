@@ -1,5 +1,5 @@
 resource "aws_cloudfront_distribution" "_myne_front" {
-
+# name = "_myne_front_${local.zones[terraform.workspace]}"
   origin {
     domain_name = data.terraform_remote_state.s3.outputs._myne_bucket_regional_name
     origin_id   = "s3"
